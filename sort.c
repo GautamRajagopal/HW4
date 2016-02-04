@@ -10,6 +10,12 @@ int compare(int a, int b) {
 	    return a - b;
 }
 
+__attribute__ ((weak))
+int cmpfunk (const void *a, const void *b)
+{
+	return ( *(int*)a - *(int*)b );
+}
+
 void bubble_sort(int *numbers, unsigned count) {
 	int temp;
 	int i, j;
@@ -57,5 +63,14 @@ void insertion_sort(int *numbers, unsigned count) {
 	memcpy(numbers, new, count*sizeof(int));
 }
 
-sorting_fn sorting_fns[] = {bubble_sort, insertion_sort, NULL};
+void third_sort(int *numbers, unsigned count) {
 
+	
+	qsort(numbers, count, sizeof(int), cmpfunk);
+
+	
+}
+
+
+
+sorting_fn sorting_fns[] = {bubble_sort, insertion_sort, third_sort, NULL};
